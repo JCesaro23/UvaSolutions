@@ -14,17 +14,17 @@ Email: mamanivillenajc@gmail.com
 using namespace std;
 void solve(){
     int h, m;
-    float hg, hgr, mg, mgr;
+    float a, b;
     while(scanf("%d:%d", &h, &m) && (h|m)){
-    	hg = 30.0 * (h%12) + (m*0.5);
-    	hgr = 360.0 - hg;
-    	mg = 6.0*m;
-    	mgr = 360.0 - mg;
-    	printf("[ %.3f , %.3f]\n", hgr, mg);
-    	printf("[ %.3f , %.3f]\n", hg, mgr);
-    	printf("\n");
-    	//falta acabar
-
+    	a = 30.0 * (h%12) + (m*0.5);
+    	b = 6.0*(m%60);
+    	if(a<b)
+            swap(a,b);
+        float angle = a-b;
+        if(angle <= 180)
+            printf("%.3f\n", angle);
+        else
+            printf("%.3f\n", 360.0 - angle);
     }
 }
 int main(){
