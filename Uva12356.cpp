@@ -13,43 +13,57 @@ Email: mamanivillenajc@gmail.com
 #define MAXN 100005
 using namespace std;
 void solve(){
-	int L, R, sL[MAXN], sR[MAXN], s, b;
+	int L, R, s, b, ansL, ansR;
 	bool sB[MAXN];
 	while(scanf("%d %d", &s, &b) && (s|b)){
-		for (int i = 1; i <= s; i++)
+		memset(sB, true, sizeof(sB));
+		ansL = ansR = -1;
+		sB[0]=false; sB[s+1]=false;
+		for (int i = 0; i < b; ++i)
 		{
-			sL[i]=i; sR[i]=i;
-			sB[i] = true;
-		}
-		sL[0] = sR[0]= sL[s+1] = sR[s+1] = 0;
-		sB[0] = false;
-		sB[s+1] = false;
-		while(b--){
+			ansL = ansR = -1;
 			scanf("%d %d", &L, &R);
-			for (int i = L; i <= R; ++i)
+			for (int pos = L; pos <=R; ++pos)
 			{
-				sL[i]=sL[sL[L-1]];
-				sR[i]=sR[sR[R+1]];
-				sB[i] = false;
+				sB[pos]=false;
+			}
+			for (int izq = L-1; izq > 0; --izq)
+			{
+				if (sB[izq])
+				{
+					ansL = izq;
+					break;
+				}
 			}
 
-			if(sL[L]!=0 && sB[L-1])
-				printf("%d ", sL[L]);
-			else
-				printf("* ");
+			for (int der = R+1; der <=s; ++der)
+			{
+				if (sB[der])
+				{
+					ansR = der;
+					break;
+				}
+			}
 
-			if(sR[R]!=0 && sB[R+1])
-				printf("%d\n", sR[R]);
+			if(ansL != -1)
+				printf("%d", ansL);
 			else
-				printf("*\n");
+				printf("*");
+
+			if(ansR != -1)
+				printf(" %d\n", ansR);
+			else
+				printf(" *\n");
+
 		}
 		printf("-\n");
 	}
 
-	//falta corregir sigue fallando
+	
 
 }
 int main(){
+	//	SIGUE FALLANDO
     fast();
     solve();
     return 0;
